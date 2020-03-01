@@ -4,6 +4,7 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.deviceservice.domain.repositories.DeviceRepository
 import com.deviceservice.domain.repositories.DeviceTagsRepository
+import com.deviceservice.factories.DeviceFactory
 import com.deviceservice.factories.DeviceRequestDtoFactory
 import io.mockk.every
 import io.mockk.just
@@ -17,6 +18,7 @@ class DeviceServiceTest {
     private val deviceTagsRepository = mockk<DeviceTagsRepository>()
     private val service = DeviceService(deviceRepository, deviceTagsRepository)
     private val deviceRequest = DeviceRequestDtoFactory.sample().toDeviceRequest()
+    private val device = DeviceFactory.sample()
     private val deviceId = deviceRequest.deviceId
     private val tagId = 1
 
@@ -29,5 +31,15 @@ class DeviceServiceTest {
         val response = service.createDevice(deviceRequest)
 
         assertThat(response).isEqualTo(Unit)
+    }
+
+    @Test
+    fun `given a request with deviceId, service must call device it must return a device`() {
+        every { deviceRepository.device(deviceId) } returns device
+        every { service.device(deviceId) } returns device
+
+        val response = service.device(deviceId)
+
+        assertThat(response).isEqualTo(device)
     }
 }

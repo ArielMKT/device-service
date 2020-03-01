@@ -1,6 +1,6 @@
 package com.deviceservice.domain.entities
 
-data class DeviceRequest(
+data class Device(
     val deviceId: String,
     val deviceDescription: String,
     val deviceState: Boolean = false,

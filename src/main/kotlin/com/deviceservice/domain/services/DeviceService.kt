@@ -1,6 +1,6 @@
 package com.deviceservice.domain.services
 
-import com.deviceservice.domain.entities.DeviceRequest
+import com.deviceservice.domain.entities.Device
 import com.deviceservice.domain.repositories.DeviceRepository
 import com.deviceservice.domain.repositories.DeviceTagsRepository
 
@@ -9,11 +9,13 @@ class DeviceService(
     private val deviceTagsRepository: DeviceTagsRepository
 ) {
 
-    fun createDevice(deviceRequest: DeviceRequest) {
+    fun createDevice(deviceRequest: Device) {
         deviceRepository.create(deviceRequest)
 
         deviceRequest.tagId?.forEach { tagId ->
             deviceTagsRepository.createDeviceTags(deviceId = deviceRequest.deviceId, tagId = tagId)
         }
     }
+
+    fun device(deviceId: String) = deviceRepository.device(deviceId = deviceId)
 }

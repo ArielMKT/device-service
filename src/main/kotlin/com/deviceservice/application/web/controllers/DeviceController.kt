@@ -18,4 +18,9 @@ class DeviceController(
 
         call.respond(HttpStatusCode.Created)
     }
+
+    suspend fun device(call: ApplicationCall) {
+        val deviceId = call.parameters["device"] ?: throw Exception()
+        call.respond(HttpStatusCode.OK, deviceService.device(deviceId))
+    }
 }

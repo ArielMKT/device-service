@@ -1,6 +1,6 @@
 package com.deviceservice.application.web.dtos
 
-import com.deviceservice.domain.entities.DeviceRequest
+import com.deviceservice.domain.entities.Device
 
 data class DeviceRequestDto(
     val deviceId: String,
@@ -9,7 +9,7 @@ data class DeviceRequestDto(
     val tagId: List<Int>? = null,
     val workplaceId: Int
 ) {
-    fun toDeviceRequest() = DeviceRequest (
+    fun toDeviceRequest() = Device (
         deviceId = deviceId,
         deviceDescription = deviceDescription,
         deviceType = deviceType,
