@@ -1,6 +1,7 @@
 package com.deviceservice.domain.services
 
 import com.deviceservice.domain.entities.Device
+import com.deviceservice.domain.entities.DeviceUpdate
 import com.deviceservice.domain.repositories.DeviceRepository
 import com.deviceservice.domain.repositories.DeviceTagsRepository
 
@@ -17,5 +18,9 @@ class DeviceService(
         }
     }
 
-    fun device(deviceId: String) = deviceRepository.device(deviceId = deviceId)
+    fun device(deviceId: String) =
+        deviceRepository.device(deviceId = deviceId)
+
+    fun updateDevice(deviceUpdate: DeviceUpdate) =
+        deviceRepository.update(deviceUpdate = deviceUpdate)
 }

@@ -1,6 +1,7 @@
 package com.deviceservice.application.web.controllers
 
 import com.deviceservice.application.web.dtos.DeviceRequestDto
+import com.deviceservice.application.web.dtos.DeviceUpdateRequestDto
 import com.deviceservice.domain.services.DeviceService
 import io.ktor.application.ApplicationCall
 import io.ktor.http.HttpStatusCode
@@ -22,5 +23,13 @@ class DeviceController(
     suspend fun device(call: ApplicationCall) {
         val deviceId = call.parameters["device"] ?: throw Exception()
         call.respond(HttpStatusCode.OK, deviceService.device(deviceId))
+    }
+
+    suspend fun updateDevice(call: ApplicationCall) {
+        call.receive<DeviceUpdateRequestDto>().also { deviceUpdateRequestDto ->
+            deviceService.updateDevice(deviceUpdateRequestDto.toDeviceUpdate())
+        }
+
+        call.respond(HttpStatusCode.OK)
     }
 }

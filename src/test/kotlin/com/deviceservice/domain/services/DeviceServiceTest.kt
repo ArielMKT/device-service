@@ -6,6 +6,7 @@ import com.deviceservice.domain.repositories.DeviceRepository
 import com.deviceservice.domain.repositories.DeviceTagsRepository
 import com.deviceservice.factories.DeviceFactory
 import com.deviceservice.factories.DeviceRequestDtoFactory
+import com.deviceservice.factories.DeviceUpdateRequestDtoFactory
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
@@ -18,6 +19,7 @@ class DeviceServiceTest {
     private val deviceTagsRepository = mockk<DeviceTagsRepository>()
     private val service = DeviceService(deviceRepository, deviceTagsRepository)
     private val deviceRequest = DeviceRequestDtoFactory.sample().toDeviceRequest()
+    private val deviceUpdateRequest = DeviceUpdateRequestDtoFactory.sample().toDeviceUpdate()
     private val device = DeviceFactory.sample()
     private val deviceId = deviceRequest.deviceId
     private val tagId = 1
@@ -41,5 +43,15 @@ class DeviceServiceTest {
         val response = service.device(deviceId)
 
         assertThat(response).isEqualTo(device)
+    }
+
+    @Test
+    fun `given a request, service must call updateDevice it must update a device and device tags`() {
+        every { deviceRepository.update(deviceUpdateRequest) } just runs
+        every { service.updateDevice(deviceUpdateRequest) } returns Unit
+
+        val response = service.updateDevice(deviceUpdateRequest)
+
+        assertThat(response).isEqualTo(Unit)
     }
 }
