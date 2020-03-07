@@ -7,6 +7,7 @@ import com.deviceservice.resources.persistence.mappers.DeviceMapper.Companion.fi
 import com.deviceservice.resources.persistence.mappers.DeviceMapper.Companion.fillUpdateRow
 import com.deviceservice.resources.persistence.mappers.DeviceMapper.Companion.toDevice
 import com.deviceservice.resources.schemas.DeviceTable
+import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -36,6 +37,14 @@ class DeviceRepositoryImpl : DeviceRepository {
                 DeviceTable.deviceId eq deviceUpdate.deviceId
             }) {
                 deviceUpdate.fillUpdateRow(it)
+            }
+        }
+    }
+
+    override fun delete(deviceId: String) {
+        transaction {
+            DeviceTable.deleteWhere {
+                DeviceTable.deviceId eq deviceId
             }
         }
     }

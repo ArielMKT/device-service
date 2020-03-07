@@ -32,4 +32,10 @@ class DeviceController(
 
         call.respond(HttpStatusCode.OK)
     }
+
+    suspend fun deleteDevice(call: ApplicationCall) {
+        val deviceId = call.parameters["device"] ?: throw Exception()
+        deviceService.deleteDevice(deviceId)
+        call.respond(HttpStatusCode.OK)
+    }
 }

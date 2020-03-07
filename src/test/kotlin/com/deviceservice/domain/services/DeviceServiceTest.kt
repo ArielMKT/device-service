@@ -46,11 +46,21 @@ class DeviceServiceTest {
     }
 
     @Test
-    fun `given a request, service must call updateDevice it must update a device and device tags`() {
+    fun `given a request, service must call updateDevice it must update a device`() {
         every { deviceRepository.update(deviceUpdateRequest) } just runs
         every { service.updateDevice(deviceUpdateRequest) } returns Unit
 
         val response = service.updateDevice(deviceUpdateRequest)
+
+        assertThat(response).isEqualTo(Unit)
+    }
+
+    @Test
+    fun `given a request, service must call deleteDevice it must delete a device`() {
+        every { deviceRepository.delete(deviceId) } just runs
+        every { service.deleteDevice(deviceId) } returns Unit
+
+        val response = service.deleteDevice(deviceId)
 
         assertThat(response).isEqualTo(Unit)
     }

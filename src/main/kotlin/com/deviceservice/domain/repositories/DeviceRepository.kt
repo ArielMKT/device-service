@@ -7,4 +7,5 @@ interface DeviceRepository {
     fun create(deviceRequest: Device)
     fun device(deviceId: String): Device
     fun update(deviceUpdate: DeviceUpdate)
+    fun delete(deviceId: String)
 }

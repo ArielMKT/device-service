@@ -23,4 +23,7 @@ class DeviceService(
 
     fun updateDevice(deviceUpdate: DeviceUpdate) =
         deviceRepository.update(deviceUpdate = deviceUpdate)
+
+    fun deleteDevice(deviceId: String) =
+        deviceRepository.delete(deviceId = deviceId)
 }
