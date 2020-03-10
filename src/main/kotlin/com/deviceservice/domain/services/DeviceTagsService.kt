@@ -16,4 +16,10 @@ class DeviceTagsService(
 
     fun allDeviceTags(deviceId: String): List<DeviceTags> =
         deviceTagsRepository.allDeviceTags(deviceId = deviceId)
+
+    fun deleteDeviceTags(deviceTagsDelete: DeviceTags) =
+        deviceTagsRepository.deleteDeviceTags(
+            deviceId = deviceTagsDelete.deviceId,
+            tagId = deviceTagsDelete.tagId
+        )
 }

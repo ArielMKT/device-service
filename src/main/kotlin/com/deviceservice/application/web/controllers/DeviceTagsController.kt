@@ -23,4 +23,12 @@ class DeviceTagsController(
         val deviceId = call.parameters["device"] ?: throw Exception()
         call.respond(HttpStatusCode.OK, deviceTagsService.allDeviceTags(deviceId))
     }
+
+    suspend fun deleteDeviceTags(call: ApplicationCall) {
+        call.receive<DeviceTagsRequestDto>().also { deviceTagsRequestDto ->
+            deviceTagsService.deleteDeviceTags(deviceTagsRequestDto.toDeviceTags())
+        }
+
+        call.respond(HttpStatusCode.OK)
+    }
 }

@@ -44,4 +44,19 @@ class DeviceTagsServiceTest {
 
         assertThat(response).isEqualTo(deviceTags)
     }
+
+    @Test
+    fun `given a request, service must call deleteDeviceTags it must delete a device tags`() {
+        every {
+            repository.deleteDeviceTags(
+                deviceTagsRequest.deviceId,
+                deviceTagsRequest.tagId
+            )
+        } just runs
+        every { service.deleteDeviceTags(deviceTagsRequest) } returns Unit
+
+        val response = service.deleteDeviceTags(deviceTagsRequest)
+
+        assertThat(response).isEqualTo(Unit)
+    }
 }

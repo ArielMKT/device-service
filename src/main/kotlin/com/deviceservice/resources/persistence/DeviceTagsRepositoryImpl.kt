@@ -6,6 +6,7 @@ import com.deviceservice.resources.persistence.mappers.DeviceTagsMapper.Companio
 import com.deviceservice.resources.schemas.DeviceTagsTable
 import com.deviceservice.resources.schemas.TagTable
 import org.jetbrains.exposed.sql.and
+import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -31,4 +32,14 @@ class DeviceTagsRepositoryImpl : DeviceTagsRepository {
                     it.toDeviceTags(deviceId)
                 }
         }
+
+    override fun deleteDeviceTags(deviceId: String, tagId: Int) {
+        transaction {
+            DeviceTagsTable.deleteWhere {
+                DeviceTagsTable.deviceId.eq(deviceId).and(
+                    DeviceTagsTable.tagId.eq(tagId)
+                )
+            }
+        }
+    }
 }
