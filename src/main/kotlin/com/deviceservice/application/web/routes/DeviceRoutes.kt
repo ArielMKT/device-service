@@ -9,7 +9,7 @@ import io.ktor.routing.put
 
 fun Routing.device(deviceController: DeviceController) {
     post { deviceController.createDevice(this.context) }
-    get("{device}") { deviceController.device(this.context) }
+    get(path = "{device}") { deviceController.device(this.context) }
     put { deviceController.updateDevice(this.context) }
-    delete("{device}") { deviceController.deleteDevice(this.context) }
+    delete(path = "{device}") { deviceController.deleteDevice(this.context) }
 }

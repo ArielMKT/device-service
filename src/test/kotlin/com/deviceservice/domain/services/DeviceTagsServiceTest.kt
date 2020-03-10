@@ -2,7 +2,9 @@ package com.deviceservice.domain.services
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import com.deviceservice.domain.entities.DeviceTags
 import com.deviceservice.domain.repositories.DeviceTagsRepository
+import com.deviceservice.factories.DeviceTagsFactory
 import com.deviceservice.factories.DeviceTagsRequestDtoFactory
 import io.mockk.every
 import io.mockk.just
@@ -15,6 +17,8 @@ class DeviceTagsServiceTest {
     private val repository = mockk<DeviceTagsRepository>()
     private val service = DeviceTagsService(repository)
     private val deviceTagsRequest = DeviceTagsRequestDtoFactory.sample().toDeviceTags()
+    private val deviceTags = listOf(DeviceTagsFactory.sample())
+    private val deviceId = deviceTagsRequest.deviceId
 
     @Test
     fun `given a request, service must call createDeviceTags it must create a device tags`() {
@@ -29,5 +33,15 @@ class DeviceTagsServiceTest {
         val response = service.createDeviceTags(deviceTagsRequest)
 
         assertThat(response).isEqualTo(Unit)
+    }
+
+    @Test
+    fun `given a request, service must call allDeviceTags it must return a list of device tags`() {
+        every { repository.allDeviceTags(deviceId) } returns deviceTags
+        every { service.allDeviceTags(deviceId) } returns deviceTags
+
+        val response = service.allDeviceTags(deviceId)
+
+        assertThat(response).isEqualTo(deviceTags)
     }
 }

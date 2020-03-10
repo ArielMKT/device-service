@@ -13,4 +13,7 @@ class DeviceTagsService(
             tagId = deviceTagsRequest.tagId
         )
     }
+
+    fun allDeviceTags(deviceId: String): List<DeviceTags> =
+        deviceTagsRepository.allDeviceTags(deviceId = deviceId)
 }

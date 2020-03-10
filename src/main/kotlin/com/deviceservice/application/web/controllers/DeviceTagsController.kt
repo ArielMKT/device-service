@@ -18,4 +18,9 @@ class DeviceTagsController(
 
         call.respond(HttpStatusCode.Created)
     }
+
+    suspend fun allDeviceTags(call: ApplicationCall) {
+        val deviceId = call.parameters["device"] ?: throw Exception()
+        call.respond(HttpStatusCode.OK, deviceTagsService.allDeviceTags(deviceId))
+    }
 }
