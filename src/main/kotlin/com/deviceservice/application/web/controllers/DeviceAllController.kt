@@ -24,4 +24,12 @@ class DeviceAllController(
             deviceAllService.allFloorDevices(floorId.toInt())
         )
     }
+
+    suspend fun allBuildingDevices(call: ApplicationCall) {
+        val buildingId = call.parameters["building"] ?: throw Exception()
+        call.respond(
+            HttpStatusCode.OK,
+            deviceAllService.allBuildingDevices(buildingId.toInt())
+        )
+    }
 }
