@@ -1,7 +1,9 @@
 package com.deviceservice.resources.persistence
 
+import com.deviceservice.domain.entities.AllFloorDevices
 import com.deviceservice.domain.entities.DeviceAllState
 import com.deviceservice.domain.repositories.DeviceAllRepository
+import com.deviceservice.resources.persistence.mappers.DeviceAllMapper.Companion.toAllFloorDevices
 import com.deviceservice.resources.schemas.BuildingTable
 import com.deviceservice.resources.schemas.DeviceTable
 import com.deviceservice.resources.schemas.FloorTable
@@ -30,5 +32,14 @@ class DeviceAllRepositoryImpl : DeviceAllRepository {
             devicesOff = (allDevices - devicesOn),
             allDevices = allDevices
         )
+    }
+
+    override fun allFloorDevices(floorId: Int): List<AllFloorDevices> = transaction {
+        (DeviceTable innerJoin WorkplaceTable innerJoin FloorTable)
+            .select {
+                FloorTable.floorId.eq(floorId)
+            }.map {
+                it.toAllFloorDevices()
+            }
     }
 }
