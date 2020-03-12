@@ -13,7 +13,7 @@ class DeviceAllController(
         val workplaceId = call.parameters["workplace"] ?: throw Exception()
         call.respond(
             HttpStatusCode.OK,
-            deviceAllService.allWorkplaceDeviceState(workplaceId.toInt())
+            deviceAllService.allWorkplaceDevices(workplaceId.toInt())
         )
     }
 
