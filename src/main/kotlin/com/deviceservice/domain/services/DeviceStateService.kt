@@ -15,4 +15,7 @@ class DeviceStateService(
 
     fun allFloorDeviceState(floorId: Int): DeviceAllState =
         deviceStateRepository.allFloorDeviceState(floorId = floorId)
+
+    fun allBuildingDeviceState(buildingId: Int): DeviceAllState =
+        deviceStateRepository.allBuildingDeviceState(buildingId = buildingId)
 }

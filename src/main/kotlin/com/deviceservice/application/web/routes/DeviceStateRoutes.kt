@@ -10,5 +10,6 @@ fun Routing.deviceState(deviceStateController: DeviceStateController) {
         get(path = "/{device}") { deviceStateController.deviceState(this.context) }
         get(path = "/workplace/{workplace}") { deviceStateController.allWorkplaceDeviceState(this.context) }
         get(path = "/floor/{floor}") { deviceStateController.allFloorDeviceState(this.context) }
+        get(path = "/building/{building}") { deviceStateController.allBuildingDeviceState(this.context) }
     }
 }
