@@ -5,13 +5,8 @@ import com.deviceservice.resources.schemas.DeviceTagsTable
 import com.deviceservice.resources.schemas.TagTable
 import org.jetbrains.exposed.sql.ResultRow
 
-class DeviceTagsMapper {
-    companion object {
-
-        fun ResultRow.toDeviceTags(deviceId: String) = DeviceTags(
-            deviceId = deviceId,
-            tagId = this[DeviceTagsTable.tagId],
-            tagDescription = this[TagTable.tagDescription]
-        )
-    }
-}
+fun ResultRow.toDeviceTags(deviceId: String) = DeviceTags(
+    deviceId = deviceId,
+    tagId = this[DeviceTagsTable.tagId],
+    tagDescription = this[TagTable.tagDescription]
+)

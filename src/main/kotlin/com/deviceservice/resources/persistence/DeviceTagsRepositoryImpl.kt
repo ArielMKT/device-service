@@ -2,7 +2,7 @@ package com.deviceservice.resources.persistence
 
 import com.deviceservice.domain.entities.DeviceTags
 import com.deviceservice.domain.repositories.DeviceTagsRepository
-import com.deviceservice.resources.persistence.mappers.DeviceTagsMapper.Companion.toDeviceTags
+import com.deviceservice.resources.persistence.mappers.toDeviceTags
 import com.deviceservice.resources.schemas.DeviceTagsTable
 import com.deviceservice.resources.schemas.TagTable
 import org.jetbrains.exposed.sql.and
