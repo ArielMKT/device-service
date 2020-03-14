@@ -1,4 +1,5 @@
 apply plugin: 'kotlin'
+apply plugin: "io.gitlab.arturbosch.detekt"
 
 buildscript {
     ext {
@@ -12,15 +13,18 @@ buildscript {
         mysql_version = '5.1.46'
         hikari_version = '3.4.2'
         konfig_version = '1.6.10.0'
+        detekt_version = '1.7.0-beta1'
     }
 
     repositories {
         mavenCentral()
         jcenter()
+        maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detekt_version"
     }
 }
 
@@ -93,3 +97,11 @@ jar {
     }
     exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
 }
+
+detekt {
+    reports {
+        html.enabled = true
+    }
+}
+
+tasks.detekt.jvmTarget = "1.8"
