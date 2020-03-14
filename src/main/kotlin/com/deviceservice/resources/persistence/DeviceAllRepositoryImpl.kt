@@ -17,27 +17,6 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 class DeviceAllRepositoryImpl : DeviceAllRepository {
 
-    override fun allWorkplaceDeviceState(workplaceId: Int): DeviceAllState = transaction {
-        var devicesOn = 0
-        var allDevices = 0
-
-        (DeviceTable innerJoin WorkplaceTable innerJoin FloorTable innerJoin BuildingTable)
-            .select {
-                DeviceTable.workplaceId.eq(workplaceId)
-            }.map { allDevicesState ->
-                if (allDevicesState[DeviceTable.deviceState])
-                    devicesOn++
-
-                allDevices++
-            }
-
-        DeviceAllState(
-            devicesOn = devicesOn,
-            devicesOff = (allDevices - devicesOn),
-            allDevices = allDevices
-        )
-    }
-
     override fun allWorkplaceDevices(workplaceId: Int): List<AllWorkplaceDevices> = transaction {
         DeviceTable.select {
             DeviceTable.workplaceId.eq(workplaceId)

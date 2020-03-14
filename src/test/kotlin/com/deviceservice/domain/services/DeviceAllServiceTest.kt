@@ -21,20 +21,6 @@ class DeviceAllServiceTest {
     private val workplaceId = allWorkplaceDevices.first().workplaceId
     private val floorId = allFloorDevices.first().floorId
     private val buildingId = allBuildingDevices.first().buildingId
-    private val deviceAllState = DeviceAllState(
-        devicesOn = 1,
-        devicesOff = 1,
-        allDevices = 2
-    )
-
-    @Test
-    fun `given a request, service must call allWorkplaceDeviceState it must return a device state's`() {
-        every { repository.allWorkplaceDeviceState(workplaceId) } returns deviceAllState
-
-        val response = service.allWorkplaceDeviceState(workplaceId)
-
-        assertThat(response).isEqualTo(deviceAllState)
-    }
 
     @Test
     fun `given a request, service must call allWorkplaceDevices it must return a list of allWorkplaceDevices`() {

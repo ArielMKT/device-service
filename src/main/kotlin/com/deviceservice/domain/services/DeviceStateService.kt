@@ -1,5 +1,6 @@
 package com.deviceservice.domain.services
 
+import com.deviceservice.domain.entities.DeviceAllState
 import com.deviceservice.domain.repositories.DeviceStateRepository
 
 class DeviceStateService(
@@ -8,4 +9,7 @@ class DeviceStateService(
 
     fun deviceState(deviceId: String): Boolean =
         deviceStateRepository.deviceState(deviceId = deviceId)
+
+    fun allWorkplaceDeviceState(workplaceId: Int): DeviceAllState =
+        deviceStateRepository.allWorkplaceDeviceState(workplaceId)
 }
