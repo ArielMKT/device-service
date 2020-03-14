@@ -3,9 +3,9 @@ package com.deviceservice.resources.persistence
 import com.deviceservice.domain.entities.Device
 import com.deviceservice.domain.entities.DeviceUpdate
 import com.deviceservice.domain.repositories.DeviceRepository
-import com.deviceservice.resources.persistence.mappers.DeviceMapper.Companion.fillInsertRow
-import com.deviceservice.resources.persistence.mappers.DeviceMapper.Companion.fillUpdateRow
-import com.deviceservice.resources.persistence.mappers.DeviceMapper.Companion.toDevice
+import com.deviceservice.resources.persistence.mappers.fillInsertRow
+import com.deviceservice.resources.persistence.mappers.fillUpdateRow
+import com.deviceservice.resources.persistence.mappers.toDevice
 import com.deviceservice.resources.schemas.DeviceTable
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert

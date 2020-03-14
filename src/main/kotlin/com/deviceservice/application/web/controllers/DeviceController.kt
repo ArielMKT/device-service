@@ -8,6 +8,7 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.request.receive
 import io.ktor.response.respond
 
+@SuppressWarnings("TooGenericExceptionThrown")
 class DeviceController(
     private val deviceService: DeviceService
 ) {
