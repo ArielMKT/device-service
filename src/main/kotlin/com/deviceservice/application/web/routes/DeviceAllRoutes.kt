@@ -6,7 +6,7 @@ import io.ktor.routing.get
 import io.ktor.routing.route
 
 fun Routing.deviceAll(deviceAllController: DeviceAllController) {
-    route("/all") {
+    route(path = "/all") {
         get(path = "/workplace/{workplace}") { deviceAllController.allWorkplaceDevices(this.context) }
         get(path = "/floor/{floor}") { deviceAllController.allFloorDevices(this.context) }
         get(path = "/building/{building}") { deviceAllController.allBuildingDevices(this.context) }
