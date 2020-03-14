@@ -8,6 +8,7 @@ import io.ktor.routing.route
 fun Routing.deviceState(deviceStateController: DeviceStateController) {
     route(path = "/state") {
         get(path = "/{device}") { deviceStateController.deviceState(this.context) }
-        get(path = "/workplace/{workplace}") { deviceStateController.deviceState(this.context) }
+        get(path = "/workplace/{workplace}") { deviceStateController.allWorkplaceDeviceState(this.context) }
+        get(path = "/floor/{floor}") { deviceStateController.allFloorDeviceState(this.context) }
     }
 }

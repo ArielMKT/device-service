@@ -18,4 +18,9 @@ class DeviceStateController(
         val workplaceId = call.parameters["workplace"] ?: throw Exception()
         call.respond(HttpStatusCode.OK, deviceStateService.allWorkplaceDeviceState(workplaceId.toInt()))
     }
+
+    suspend fun allFloorDeviceState(call: ApplicationCall) {
+        val floorId = call.parameters["floor"] ?: throw Exception()
+        call.respond(HttpStatusCode.OK, deviceStateService.allFloorDeviceState(floorId.toInt()))
+    }
 }

@@ -6,6 +6,7 @@ import com.deviceservice.resources.schemas.BuildingTable
 import com.deviceservice.resources.schemas.DeviceTable
 import com.deviceservice.resources.schemas.FloorTable
 import com.deviceservice.resources.schemas.WorkplaceTable
+import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -26,6 +27,29 @@ class DeviceStateRepositoryImpl : DeviceStateRepository {
         (DeviceTable innerJoin WorkplaceTable innerJoin FloorTable innerJoin BuildingTable)
             .select {
                 DeviceTable.workplaceId.eq(workplaceId)
+            }.map { allDevicesState ->
+                if (allDevicesState[DeviceTable.deviceState])
+                    devicesOn++
+
+                allDevices++
+            }
+
+        DeviceAllState(
+            devicesOn = devicesOn,
+            devicesOff = (allDevices - devicesOn),
+            allDevices = allDevices
+        )
+    }
+
+    override fun allFloorDeviceState(floorId: Int): DeviceAllState = transaction {
+        var devicesOn = 0
+        var allDevices = 0
+
+        (DeviceTable innerJoin WorkplaceTable innerJoin FloorTable innerJoin BuildingTable)
+            .select {
+                DeviceTable.workplaceId.eq(WorkplaceTable.workplaceId).and(
+                    WorkplaceTable.floorId.eq(floorId)
+                )
             }.map { allDevicesState ->
                 if (allDevicesState[DeviceTable.deviceState])
                     devicesOn++
