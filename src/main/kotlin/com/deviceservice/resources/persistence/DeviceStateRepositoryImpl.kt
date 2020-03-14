@@ -3,6 +3,7 @@ package com.deviceservice.resources.persistence
 import com.deviceservice.domain.entities.DeviceAllState
 import com.deviceservice.domain.entities.DeviceStateUpdate
 import com.deviceservice.domain.repositories.DeviceStateRepository
+import com.deviceservice.resources.persistence.mappers.DeviceStateMapper.Companion.fillUpdateRow
 import com.deviceservice.resources.schemas.BuildingTable
 import com.deviceservice.resources.schemas.DeviceTable
 import com.deviceservice.resources.schemas.FloorTable
@@ -96,8 +97,7 @@ class DeviceStateRepositoryImpl : DeviceStateRepository {
             DeviceTable.update({
                 DeviceTable.deviceId eq device.deviceId
             }) {
-                it[deviceId] = device.deviceId
-                it[deviceState] = device.deviceState
+                device.fillUpdateRow(it)
             }
         }
     }
