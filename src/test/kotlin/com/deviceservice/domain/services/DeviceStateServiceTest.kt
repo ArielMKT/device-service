@@ -4,8 +4,11 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.deviceservice.domain.entities.DeviceAllState
 import com.deviceservice.domain.repositories.DeviceStateRepository
+import com.deviceservice.factories.DeviceStateUpdateRequestDtoFactory
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
+import io.mockk.runs
 import org.junit.jupiter.api.Test
 
 class DeviceStateServiceTest {
@@ -16,6 +19,7 @@ class DeviceStateServiceTest {
     private val workplaceId = 1
     private val floorId = 1
     private val buildingId = 1
+    private val updateDeviceState = DeviceStateUpdateRequestDtoFactory.sample().toDeviceStateUpdateRequest()
     private val deviceAllState = DeviceAllState(
         devicesOn = 1,
         devicesOff = 1,
@@ -56,5 +60,14 @@ class DeviceStateServiceTest {
         val response = service.allBuildingDeviceState(buildingId)
 
         assertThat(response).isEqualTo(deviceAllState)
+    }
+
+    @Test
+    fun `given a request, service must call updateDeviceState it must update a device state`() {
+        every { repository.updateDeviceState(updateDeviceState) } just runs
+
+        val response = service.updateDeviceState(updateDeviceState)
+
+        assertThat(response).isEqualTo(Unit)
     }
 }

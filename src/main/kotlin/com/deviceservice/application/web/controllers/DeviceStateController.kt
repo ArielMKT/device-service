@@ -1,8 +1,10 @@
 package com.deviceservice.application.web.controllers
 
+import com.deviceservice.application.web.dtos.DeviceStateUpdateRequestDto
 import com.deviceservice.domain.services.DeviceStateService
 import io.ktor.application.ApplicationCall
 import io.ktor.http.HttpStatusCode
+import io.ktor.request.receive
 import io.ktor.response.respond
 
 class DeviceStateController(
@@ -28,4 +30,9 @@ class DeviceStateController(
         val buildingId = call.parameters["building"] ?: throw Exception()
         call.respond(HttpStatusCode.OK, deviceStateService.allBuildingDeviceState(buildingId.toInt()))
     }
+
+    suspend fun updateDeviceState(call: ApplicationCall) =
+        call.receive<DeviceStateUpdateRequestDto>().also { deviceStateUpdateRequestDto ->
+            deviceStateService.updateDeviceState(deviceStateUpdateRequestDto.toDeviceStateUpdateRequest())
+        }
 }
